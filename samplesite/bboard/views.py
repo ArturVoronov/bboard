@@ -5,10 +5,15 @@ from django.template import loader
 from .models import Bb,Rubric
 
 def index(request):
-    template = loader.get_template ('bboard/index.html')
-    bbs = Bb.objects.order_by('-published')
-    context ={'bbs':bbs}
-    return HttpResponse(template.render(context, request))
+    bbs = Bb.objects.all()
+    rubrics = Rubric.objects.all()
+    context = {'bbs': bbs, 'rubrics': rubrics}
+    return render(request, 'bboard/index.html', context)
+
+   # template = loader.get_template ('bboard/index.html')
+   # bbs = Bb.objects.order_by('-published')
+   # context ={'bbs':bbs}
+   # return HttpResponse(template.render(context, request))
 
 def rubric_bbs(request, rubric_id):
     bbs = Bb.objects.filter(rubric=rubric_id)
