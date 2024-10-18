@@ -4,6 +4,9 @@ from django.template import loader
 
 from .models import Bb,Rubric
 
+from django.views.generic.edit import CreateView
+from .forms import BbForm
+
 def index(request):
     bbs = Bb.objects.all()
     rubrics = Rubric.objects.all()
@@ -26,3 +29,12 @@ def rubric_bbs(request, rubric_id):
         s += bb.title + '\r\n' + bb.content +'\r\n\r\n'
     return HttpResponse(s, content_type='text/plain; charset=utf-8')
 """
+class BbCreateView(CreateView):
+    template_name = 'bboard/bb_create.html'
+    form_class = BbForm
+    success_url = '/bboard/'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['rubrics'] = Rubric.objects.all()
+        return context
