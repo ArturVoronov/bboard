@@ -1,3 +1,20 @@
+{% extends "layout/basic.html" %}
+{% block title %}{{ current_rubric.name }}{% endblock %}
+{% block content %}
+<h2>Рубрика: {{ current_rubric.name }}</h2>
+{% for bb in bbs %}
+<div>
+<h2>{{ bb.title }}</h2>
+<p>{{ bb.content }}</p>
+
+<p>{{ bb.published|date:"d.m.Y H:i:s" }}</p>
+</div>
+{% endfor %}
+{% endblock %}
+
+
+
+<!--
 <!DOCTYPE html>
 <html>
   <head>
@@ -9,6 +26,7 @@
        <h2>Рубрика: {{ current_rubric.name }}</h2>
        <div>
          <a href="/bboard/">Главная</a>
+         <a href="{% url 'add' %}">Добавить</a>
          {% for rubric in rubrics %}
          <a href="{%url 'rubric_bbs' rubric.pk%}">{{ rubric.name }}</a>
          {% endfor %}
@@ -21,4 +39,4 @@
         </div>
        {% endfor %}
 </body>
-</html>
+</html> -->
